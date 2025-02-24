@@ -12,7 +12,7 @@ const color = {
   red2: "#C93514",
   white: "#FFFFFF",
   storeOpen: "#07721A",
-  storClose: "C93514",
+  storeClose: "C93514",
   noticeBackground: "#ECEDF0",
   noticeText: "#80899D",
   noticeNewMenuBackground: "#FBECCD",
