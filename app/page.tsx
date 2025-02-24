@@ -1,19 +1,12 @@
+import { Header } from "./../components/header";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="w-full pb-[284px] bg-white flex-col items-center gap-[164px] inline-flex overflow-hidden">
       {/* header */}
-      <div className="w-full border-b border-gray3 px-14 py-6">
-        <Image
-          aria-hidden
-          src="/graphics/st-order-vertical.svg"
-          alt="Logo"
-          width={308}
-          height={61}
-        />
-      </div>
-
+      <Header />
+      {/* main section */}
       <div className="flex-1 justify-center items-center">
         <div className="flex flex-col justify-center  gap-7">
           <div className="text-4xl font-bold font-['Inter'] leading-9">
