@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center w-full h-screen gap-4 px-20 bg-gray2 pt-7">
+    <div className="flex flex-col items-center w-full h-screen gap-4 px-20 bg-gray2 py-7">
       {/* title */}
       <div className="flex items-center justify-between w-full">
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9">
@@ -16,7 +16,7 @@ export default function Page() {
         </button>
       </div>
       {/* rows section */}
-      <div className="flex flex-col w-full gap-4 overflow-y-auto flex-1 pb-32 pt-4">
+      <div className="flex flex-col w-full gap-4 overflow-y-auto flex-1 pb-24 pt-4">
         {/* row */}
         <div className="w-full px-6 py-4 bg-white rounded-[20px] justify-between items-center flex">
           <div className="flex items-center justify-center gap-11">
