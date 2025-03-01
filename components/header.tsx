@@ -1,5 +1,5 @@
 import Image from "next/image";
-export function Header({}) {
+export default function Header({}) {
   return (
     <div className="w-full border-b border-gray3 px-14 py-6">
       <Image
