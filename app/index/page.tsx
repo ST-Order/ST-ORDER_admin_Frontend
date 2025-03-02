@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Page() {
@@ -58,7 +59,7 @@ export default function Page() {
 
         {/* menu bar */}
         <div className="flex items-center justify-center gap-8">
-          <div className={menuItemStyle}>
+          <Link href="/order" className={menuItemStyle}>
             <Image
               aria-hidden
               src="/graphics/home_orders.svg"
@@ -67,9 +68,9 @@ export default function Page() {
               height={140}
             />
             <div className={menuTextStyle}>주문 처리</div>
-          </div>
+          </Link>
 
-          <div className={menuItemStyle}>
+          <Link href="/menus" className={menuItemStyle}>
             <Image
               aria-hidden
               src="/graphics/home_menus.svg"
@@ -78,9 +79,9 @@ export default function Page() {
               height={140}
             />
             <div className={menuTextStyle}>메뉴 관리</div>
-          </div>
+          </Link>
 
-          <div className={menuItemStyle}>
+          <Link href="/soldout" className={menuItemStyle}>
             <Image
               aria-hidden
               src="/graphics/home_soldout.svg"
@@ -89,9 +90,9 @@ export default function Page() {
               height={140}
             />
             <div className={menuTextStyle}>품절 메뉴</div>
-          </div>
+          </Link>
 
-          <div className={menuItemStyle}>
+          <Link href="/notice" className={menuItemStyle}>
             <Image
               aria-hidden
               src="/graphics/home_notice.svg"
@@ -100,9 +101,9 @@ export default function Page() {
               height={140}
             />
             <div className={menuTextStyle}>공지 등록</div>
-          </div>
+          </Link>
 
-          <div className={menuItemStyle}>
+          <Link href="/order-history" className={menuItemStyle}>
             <Image
               aria-hidden
               src="/graphics/home_orderhistory.svg"
@@ -111,7 +112,7 @@ export default function Page() {
               height={140}
             />
             <div className={menuTextStyle}>주문 처리 내역</div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
