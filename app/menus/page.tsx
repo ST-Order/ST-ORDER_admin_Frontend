@@ -16,7 +16,7 @@ export default function Page() {
         </button>
       </div>
       {/* rows section */}
-      <div className="flex flex-col w-full gap-4 overflow-y-auto flex-1 pb-24 pt-4">
+      <div className="flex flex-col flex-1 w-full gap-4 pt-4 pb-24 overflow-y-auto">
         {/* row */}
         <div className="w-full px-6 py-4 bg-white rounded-[20px] justify-between items-center flex">
           <div className="flex items-center justify-center gap-11">
@@ -44,7 +44,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -249,7 +249,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
@@ -331,7 +331,7 @@ export default function Page() {
               <div className=" text-black text-xl font-normal font-['Inter'] leading-tight">
                 맛난 삼겹살과 쌈장으로 만든 덮밥
               </div>
-              <div className=" text-[#80899d] text-xl font-normal font-['Inter'] leading-tight">
+              <div className=" text-gray5 text-xl font-normal font-['Inter'] leading-tight">
                 옵션: 곱배기(+1,000) / 밥 추가(+1,000)
               </div>
             </div>
