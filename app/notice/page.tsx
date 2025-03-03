@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -6,13 +7,16 @@ export default function Page() {
       {/* title */}
       <div className="flex items-center justify-between w-full">
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9">
-          메뉴 관리
+          공지사항
         </div>
         <button className="px-6 py-3 bg-[#0e34c9] rounded-xl justify-center items-center gap-3 flex">
           <Image src="/icons/plus.svg" alt="plus" width={20} height={20} />
-          <div className="text-white text-[22px] font-medium font-['Inter'] leading-snug">
-            공지사항
-          </div>
+          <Link
+            href="/notice/register"
+            className="text-white text-[22px] font-medium font-['Inter'] leading-snug"
+          >
+            공지 등록
+          </Link>
         </button>
       </div>
       {/* rows section */}
@@ -48,3 +52,5 @@ export default function Page() {
     </div>
   );
 }
+
+// todo: 각 태그 설정
