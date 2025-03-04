@@ -122,9 +122,9 @@ export default function OrderManagementPage() {
       {activeTab === "pending" ? (
         <PendingOrders orders={SAMPLE_ORDERS} />
       ) : activeTab === "preparing" ? (
-        <PreparingOrders />
+        <PreparingOrders orders={SAMPLE_ORDERS} />
       ) : (
-        <CompletedOrders />
+        <CompletedOrders orders={SAMPLE_ORDERS} />
       )}
     </div>
   );
@@ -165,22 +165,24 @@ const OrderDetailsModal = ({ onClose, order }: OrderDetailsModalProps) => {
 const PendingOrders = ({ orders }: { orders: OrderData[] }) => (
   <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
     {orders.map((order) => (
-      <OrderCard key={order.id} order={order} />
+      <OrderCard key={order.id} order={order} status={"pending"} />
     ))}
   </div>
 );
 
-const PreparingOrders = () => (
+const PreparingOrders = ({ orders }: { orders: OrderData[] }) => (
   <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
-    <OrderCard />
+    {orders.map((order) => (
+      <OrderCard key={order.id} order={order} status={"preparing"} />
+    ))}
   </div>
 );
 
-const CompletedOrders = () => (
+const CompletedOrders = ({ orders }: { orders: OrderData[] }) => (
   <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
-    <OrderCard />
-    <OrderCard />
-    <OrderCard />
+    {orders.map((order) => (
+      <OrderCard key={order.id} order={order} status={"completed"} />
+    ))}
   </div>
 );
 
@@ -218,7 +220,13 @@ const OrderItemDetail = ({
   </>
 );
 
-const OrderCard = ({ order }: { order: OrderData }) => {
+const OrderCard = ({
+  order,
+  status,
+}: {
+  order: OrderData;
+  status: OrderStatus;
+}) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
   return (
     <div className=" bg-white rounded-[20px] justify-start items-center flex">
@@ -276,9 +284,19 @@ const OrderCard = ({ order }: { order: OrderData }) => {
               {order?.totalPrice?.toLocaleString() || "0"}원
             </div>
           </div>
-          <div className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
-            접수하기
-          </div>
+          {status === "pending" ? (
+            <div className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
+              접수하기
+            </div>
+          ) : status === "preparing" ? (
+            <div className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
+              조리 완료
+            </div>
+          ) : (
+            <div className="px-10 py-3 bg-gray2 rounded-xl text-blue3 text-[22px] font-medium font-['Inter'] leading-snug ">
+              전달 완료
+            </div>
+          )}
         </div>
       </div>
     </div>
