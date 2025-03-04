@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,7 +12,7 @@ export default function Page() {
   const menuTextStyle = "text-center text-black text-[28px] font-normal";
 
   return (
-    <div className="flex flex-col items-center justify-center w-full pb-40">
+    <div className="flex flex-col items-center justify-center w-full">
       <div className="flex flex-col items-center justify-center gap-16">
         {/* greeting */}
         <div className="flex flex-col items-center gap-4">
@@ -47,9 +46,13 @@ export default function Page() {
           </div>
           <button
             onClick={() => {
-              confirm(
-                "영업을 시작하시겠습니까?\n영업을 시작하면 고객들이 메뉴를 주문할 수 있어요. "
-              );
+              const message = !open
+                ? "영업을 시작하시겠습니까?\n영업을 시작하면 고객들이 메뉴를 주문할 수 있어요."
+                : "영업을 종료하시겠습니까?\n영업을 종료하면 고객들이 메뉴를 주문할 수 없어요.";
+
+              if (confirm(message)) {
+                setOpen(!open);
+              }
             }}
             className="w-[480px] text-white text-[22px] font-medium h-20 px-[135px] py-[21px] bg-blue2 rounded-[20px] flex items-center justify-center"
           >
