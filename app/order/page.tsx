@@ -285,17 +285,17 @@ const OrderCard = ({
             </div>
           </div>
           {status === "pending" ? (
-            <div className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
+            <button className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
               접수하기
-            </div>
+            </button>
           ) : status === "preparing" ? (
-            <div className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
+            <button className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
               조리 완료
-            </div>
+            </button>
           ) : (
-            <div className="px-10 py-3 bg-gray2 rounded-xl text-blue3 text-[22px] font-medium font-['Inter'] leading-snug ">
+            <button className="px-10 py-3 bg-gray2 rounded-xl text-blue3 text-[22px] font-medium font-['Inter'] leading-snug ">
               전달 완료
-            </div>
+            </button>
           )}
         </div>
       </div>
