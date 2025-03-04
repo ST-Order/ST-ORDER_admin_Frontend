@@ -7,7 +7,7 @@ type OrderStatus = "pending" | "preparing" | "completed";
 interface OrderData {
   id: number;
   time: string;
-  itemCount: number;
+  orderCount: number;
   totalPrice: number;
   items: MenuItem[];
 }
@@ -22,7 +22,7 @@ const SAMPLE_ORDERS: OrderData[] = [
   {
     id: 1,
     time: "12:55",
-    itemCount: 3,
+    orderCount: 3,
     totalPrice: 28500,
     items: [
       {
@@ -40,12 +40,27 @@ const SAMPLE_ORDERS: OrderData[] = [
         quantity: 1,
         options: [],
       },
+      {
+        name: "불고기덮밥",
+        quantity: 1,
+        options: [],
+      },
+      {
+        name: "불고기덮밥",
+        quantity: 1,
+        options: [],
+      },
+      {
+        name: "불고기덮밥",
+        quantity: 1,
+        options: [],
+      },
     ],
   },
   {
     id: 2,
     time: "13:10",
-    itemCount: 2,
+    orderCount: 2,
     totalPrice: 20000,
     items: [
       {
@@ -63,7 +78,7 @@ const SAMPLE_ORDERS: OrderData[] = [
   {
     id: 3,
     time: "13:45",
-    itemCount: 4,
+    orderCount: 4,
     totalPrice: 38000,
     items: [
       {
@@ -264,21 +279,24 @@ const OrderCard = ({
           </div>
         </div>
         {/* View All Button */}
-        <div className="w-full px-10 ">
-          <button
-            onClick={() => {
-              setIsDetailsOpen(true);
-            }}
-            className="text-[#0e34c9] text-xl font-normal font-['Inter'] underline leading-tight"
-          >
-            전체보기
-          </button>
-        </div>
+        {order.orderCount > 9 && (
+          <div className="w-full px-10 ">
+            <button
+              onClick={() => {
+                setIsDetailsOpen(true);
+              }}
+              className="text-[#0e34c9] text-xl font-normal font-['Inter'] underline leading-tight"
+            >
+              전체보기
+            </button>
+          </div>
+        )}
+
         {/* Order Summary */}
         <div className="flex items-center justify-between px-10 pt-3 pb-5 border-t-2 border-t-gray3">
           <div className="flex items-center gap-4">
             <div className="text-black text-[28px] font-normal font-['Inter'] leading-7">
-              [메뉴 {order.itemCount}개]
+              [메뉴 {order.orderCount}개]
             </div>
             <div className="text-black text-[28px] font-bold font-['Inter'] leading-7">
               {order?.totalPrice?.toLocaleString() || "0"}원
