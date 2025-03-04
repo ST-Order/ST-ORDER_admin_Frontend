@@ -110,7 +110,7 @@ export default function OrderManagementPage() {
               : `bg-gray4 font-medium`
           } text-white text-4xl  font-['Inter'] leading-9`}
         >
-          결제 완료 04
+          결제 완료 {SAMPLE_ORDERS.length}
         </button>
         <button
           onClick={() => setActiveTab("preparing")}
@@ -120,7 +120,7 @@ export default function OrderManagementPage() {
               : `bg-gray4 font-medium`
           } text-white text-4xl  font-['Inter'] leading-9`}
         >
-          조리중 00
+          조리중 {SAMPLE_ORDERS.length}
         </button>
         <button
           onClick={() => setActiveTab("completed")}
@@ -130,7 +130,7 @@ export default function OrderManagementPage() {
               : `bg-gray4 font-medium`
           } text-white text-4xl  font-['Inter'] leading-9`}
         >
-          조리 완료 00
+          조리 완료 {SAMPLE_ORDERS.length}
         </button>
       </div>
       {/* Content section */}
