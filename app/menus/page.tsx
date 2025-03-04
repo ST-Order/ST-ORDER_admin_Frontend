@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { DUMMY_DATA } from "./dummy";
+import Link from "next/link";
 
 interface MenuOption {
   optionId: number; // Long을 number로 변환
@@ -32,9 +33,12 @@ export default function Page() {
         </div>
         <button className="px-6 py-3 bg-[#0e34c9] rounded-xl justify-center items-center gap-3 flex">
           <Image src="/icons/plus.svg" alt="plus" width={20} height={20} />
-          <div className="text-white text-[22px] font-medium font-['Inter'] leading-snug">
+          <Link
+            href={"/menus/register"}
+            className="text-white text-[22px] font-medium font-['Inter'] leading-snug"
+          >
             메뉴 등록
-          </div>
+          </Link>
         </button>
       </div>
       {/* rows section */}
