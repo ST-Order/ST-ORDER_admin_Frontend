@@ -135,11 +135,12 @@ export default function OrderManagementPage() {
       </div>
       {/* Content section */}
       {activeTab === "pending" ? (
-        <PendingOrders orders={SAMPLE_ORDERS} />
+        // <PendingOrders orders={SAMPLE_ORDERS} />
+        <OrderList orders={SAMPLE_ORDERS} activeTab="pending" />
       ) : activeTab === "preparing" ? (
-        <PreparingOrders orders={SAMPLE_ORDERS} />
+        <OrderList orders={SAMPLE_ORDERS} activeTab="preparing" />
       ) : (
-        <CompletedOrders orders={SAMPLE_ORDERS} />
+        <OrderList orders={SAMPLE_ORDERS} activeTab="completed" />
       )}
     </div>
   );
@@ -177,29 +178,21 @@ const OrderDetailsModal = ({ onClose, order }: OrderDetailsModalProps) => {
   );
 };
 
-const PendingOrders = ({ orders }: { orders: OrderData[] }) => (
-  <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
-    {orders.map((order) => (
-      <OrderCard key={order.id} order={order} status={"pending"} />
-    ))}
-  </div>
-);
-
-const PreparingOrders = ({ orders }: { orders: OrderData[] }) => (
-  <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
-    {orders.map((order) => (
-      <OrderCard key={order.id} order={order} status={"preparing"} />
-    ))}
-  </div>
-);
-
-const CompletedOrders = ({ orders }: { orders: OrderData[] }) => (
-  <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
-    {orders.map((order) => (
-      <OrderCard key={order.id} order={order} status={"completed"} />
-    ))}
-  </div>
-);
+const OrderList = ({
+  orders,
+  activeTab,
+}: {
+  orders: OrderData[];
+  activeTab: OrderStatus;
+}) => {
+  return (
+    <div className="flex flex-col flex-1 w-full gap-4 px-20 pt-8 overflow-y-auto pb-36 ">
+      {orders.map((order) => (
+        <OrderCard key={order.id} order={order} status={activeTab} />
+      ))}
+    </div>
+  );
+};
 
 const Divider = () => (
   <div data-svg-wrapper>
