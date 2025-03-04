@@ -12,10 +12,10 @@ export default function Page() {
   const menuTextStyle = "text-center text-black text-[28px] font-normal";
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex flex-col items-center justify-center gap-16">
+    <div className="flex flex-col items-center justify-start w-full h-screen py-8 overflow-y-auto">
+      <div className="flex flex-col items-center justify-center gap-16 pb-32">
         {/* greeting */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 ">
           <div className="flex items-center gap-4">
             <img
               className="w-24 h-24 rounded-3xl"
@@ -61,7 +61,7 @@ export default function Page() {
         </div>
 
         {/* menu bar */}
-        <div className="flex items-center justify-center gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-8">
           <Link href="/order" className={menuItemStyle}>
             <Image
               aria-hidden
