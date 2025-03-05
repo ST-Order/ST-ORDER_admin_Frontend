@@ -1,26 +1,8 @@
 import Image from "next/image";
 import { DUMMY_DATA } from "./dummy";
 import Link from "next/link";
+import { Menu } from "@/types/types";
 
-interface MenuOption {
-  optionId: number; // Long을 number로 변환
-  optionName: string;
-  optionPrice: number; // Integer를 number로 변환
-  optionAvailable: boolean;
-}
-
-interface Menu {
-  menuId: number; // Long을 number로 변환
-  menuName: string;
-  isBest: boolean;
-  isPopular: boolean;
-  menuImage: string;
-  description: string;
-  price: number; // Integer를 number로 변환
-  isSoldOut: boolean;
-  isAvailable: boolean;
-  options: MenuOption[];
-}
 export default function Page() {
   const SAMPLE_DATA: Menu[] = DUMMY_DATA.menus;
 
