@@ -1,11 +1,94 @@
+"use client";
+
 import Image from "next/image";
 import { DUMMY_DATA } from "./dummy";
 import { Menu, SoldoutMenu } from "@/types/types";
 import { DUMMY_DATA as DUMMY_MENU } from "../menus/dummy";
+import { useEffect, useState } from "react";
 
 const SAMPLE_DATA: SoldoutMenu[] = DUMMY_DATA.menus;
 const SAMPLE_DATA2: Menu[] = DUMMY_MENU.menus;
+
 export default function Page() {
+  const [menuDown, setMenuDown] = useState<boolean>(false);
+  const [selectedMenu, setSelectedMenu] = useState<string>("");
+
+  const OptionList = ({ menus }: { menus: Menu[] }) => {
+    return (
+      <div className="w-full rounded-xl border border-[#adb3c0] flex-col bg-white overflow-hidden">
+        {menus.map((menu, index) => (
+          <OptionItem
+            key={index}
+            name={menu.menuName}
+            index={index}
+            length={menus.length}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  // const OptionItem = ({
+  //   name,
+  //   index,
+  //   length,
+  // }: {
+  //   name: string;
+  //   index: number;
+  //   length: number;
+  // }) => (
+  //   <div
+  //     className={`w-full py-3 px-6 ${
+  //       index === length - 1
+  //         ? "hover:border-t"
+  //         : index === 0
+  //         ? "border-b hover:border-b"
+  //         : "border-b hover:border-b hover:border-t"
+  //     } bg-[#f9f9fa] hover:bg-[#dee1e6] border-[#dee1e6] hover:border-[#adb3c0] text-xl font-normal font-['Inter'] leading-tight`}
+  //   >
+  //     {name}
+  //     {index}
+  //   </div>
+  // );
+
+  const OptionItem = ({
+    name,
+    index,
+    length,
+  }: {
+    name: string;
+    index: number;
+    length: number;
+  }) => {
+    // 테두리 클래스 로직
+    let borderClass = "";
+
+    if (index === length - 1) {
+      // 마지막 항목: hover 시에만 위쪽 테두리
+      borderClass = "hover:border-t";
+    } else if (index === 0) {
+      // 첫 번째 항목: 항상 아래쪽 테두리
+      borderClass = "border-b";
+    } else {
+      // 중간 항목: 항상 아래쪽 테두리, hover 시 위쪽 테두리 추가
+      borderClass = "border-b hover:border-t";
+    }
+
+    return (
+      <div
+        onClick={() => {
+          setSelectedMenu(name);
+          setMenuDown(false);
+        }}
+        className={`cursor-pointer w-full py-3 px-6 ${borderClass} hover:border-[#adb3c0] border-[#dee1e6] bg-[#f9f9fa] hover:bg-[#dee1e6] text-xl font-normal font-['Inter'] leading-tight`}
+      >
+        {name}
+      </div>
+    );
+  };
+  useEffect(() => {
+    console.log(selectedMenu);
+  }, [selectedMenu]);
   return (
     <div className="flex flex-col w-full px-20 py-7 gap-5">
       <div className="flex flex-col w-full gap-7">
@@ -21,9 +104,20 @@ export default function Page() {
             </div>
             <div className="flex gap-4 justify-center items-center">
               <div className="relative w-96">
-                <div className=" w-full justify-between items-center px-4 py-3 bg-gray1 rounded-xl border border-gray4 flex ">
-                  <div className="text-gray5 text-xl font-normal font-['Inter'] leading-tight">
-                    품절된 메뉴를 선택해주세요.
+                <div
+                  onClick={() => {
+                    setMenuDown(!menuDown);
+                  }}
+                  className="cursor-pointer w-full justify-between items-center px-4 py-3 bg-gray1 rounded-xl border border-gray4 flex"
+                >
+                  <div
+                    className={`${
+                      !selectedMenu ? "text-gray5" : "text-black"
+                    }  text-xl font-normal font-['Inter'] leading-tight`}
+                  >
+                    {!selectedMenu
+                      ? "품절된 메뉴를 선택해주세요."
+                      : selectedMenu}
                   </div>
                   <Image
                     src="/icons/dropdown_down.svg"
@@ -32,9 +126,11 @@ export default function Page() {
                     alt=""
                   />
                 </div>
-                <div className="absolute w-full left-0 top-full mt-1 z-10">
-                  <OptionList menus={SAMPLE_DATA2} />
-                </div>
+                {menuDown && (
+                  <div className="absolute w-full left-0 top-full mt-1 z-10">
+                    <OptionList menus={SAMPLE_DATA2} />
+                  </div>
+                )}
               </div>
               <button className="px-5 h-full bg-blue2 rounded-2xl text-white text-[22px] font-medium font-['Inter'] leading-snug">
                 등록
@@ -65,77 +161,6 @@ export default function Page() {
     </div>
   );
 }
-
-const OptionList = ({ menus }: { menus: Menu[] }) => {
-  console.log(menus.length);
-  return (
-    <div className="w-full rounded-xl border border-[#adb3c0] flex-col bg-white overflow-hidden">
-      {menus.map((menu, index) => (
-        <OptionItem
-          key={index}
-          name={menu.menuName}
-          index={index}
-          length={menus.length}
-        />
-      ))}
-    </div>
-  );
-};
-
-// const OptionItem = ({
-//   name,
-//   index,
-//   length,
-// }: {
-//   name: string;
-//   index: number;
-//   length: number;
-// }) => (
-//   <div
-//     className={`w-full py-3 px-6 ${
-//       index === length - 1
-//         ? "hover:border-t"
-//         : index === 0
-//         ? "border-b hover:border-b"
-//         : "border-b hover:border-b hover:border-t"
-//     } bg-[#f9f9fa] hover:bg-[#dee1e6] border-[#dee1e6] hover:border-[#adb3c0] text-xl font-normal font-['Inter'] leading-tight`}
-//   >
-//     {name}
-//     {index}
-//   </div>
-// );
-
-const OptionItem = ({
-  name,
-  index,
-  length,
-}: {
-  name: string;
-  index: number;
-  length: number;
-}) => {
-  // 테두리 클래스 로직
-  let borderClass = "";
-
-  if (index === length - 1) {
-    // 마지막 항목: hover 시에만 위쪽 테두리
-    borderClass = "hover:border-t";
-  } else if (index === 0) {
-    // 첫 번째 항목: 항상 아래쪽 테두리
-    borderClass = "border-b hover:border-b";
-  } else {
-    // 중간 항목: 항상 아래쪽 테두리, hover 시 위쪽 테두리 추가
-    borderClass = "border-b hover:border-t";
-  }
-
-  return (
-    <div
-      className={`w-full py-3 px-6 ${borderClass} hover:border-[#adb3c0] border-[#dee1e6] bg-[#f9f9fa] hover:bg-[#dee1e6] text-xl font-normal font-['Inter'] leading-tight`}
-    >
-      {name}
-    </div>
-  );
-};
 
 const MenuItem = ({ item }: { item: SoldoutMenu }) => (
   <div className="w-[737px] h-[108px] px-4 py-3 bg-gray1 rounded-xl border border-[#dee1e6] justify-between items-center flex">
