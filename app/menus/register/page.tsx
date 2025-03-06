@@ -40,10 +40,10 @@ export default function Page() {
   };
   const MenuOption = ({ name }: { name: string }) => {
     const [price, setPrice] = useState<number | null>(null);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     const onChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawValue = e.target.value;
-
       const value = rawValue.replace(/,/g, "");
       if (value === "") {
         setPrice(null);
@@ -60,12 +60,21 @@ export default function Page() {
     const onPlusClick = () => {
       setPrice(Number(price) + 100);
     };
+
     return (
       <div className="flex items-center justify-start gap-2">
         <div className="relative w-5 h-5 overflow-hidden">
           <input
             type="checkbox"
             className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+            onChange={() => {
+              if (isChecked) {
+                setIsChecked(false);
+                setPrice(null);
+              } else {
+                setIsChecked(true);
+              }
+            }}
           />
         </div>
         <div className="flex flex-col items-start justify-center gap-1">
@@ -81,6 +90,7 @@ export default function Page() {
             value={price === null ? "" : price.toLocaleString()}
             onChange={onChangePrice}
             className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
+            disabled={!isChecked ? true : false}
           />
           <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
             <Image
