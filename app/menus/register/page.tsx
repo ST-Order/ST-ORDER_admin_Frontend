@@ -1,8 +1,109 @@
+"use client";
+
 import Image from "next/image";
+import React, { useState } from "react";
 
 export default function Page() {
+  const CustomOption = () => {
+    return (
+      <div className="flex items-center justify-start gap-2">
+        <div className="relative w-5 h-5 overflow-hidden">
+          <input
+            type="checkbox"
+            className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+          />
+        </div>
+        <input
+          type="text"
+          className="w-28 text-xl font-medium border-b-2 border-b-gray4"
+          placeholder="직접 입력"
+        />
+        {/* counter */}
+        <div className="w-[124px] h-8 justify-start items-center flex">
+          <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
+            <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
+              가격
+            </div>
+          </div>
+          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
+            <Image src="/icons/dropdown_up.svg" width={12} height={12} alt="" />
+            <Image
+              src="/icons/dropdown_down.svg"
+              width={12}
+              height={12}
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+  const MenuOption = ({ name }: { name: string }) => {
+    const [price, setPrice] = useState<number | null>(null);
+
+    const onChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const rawValue = e.target.value;
+
+      const value = rawValue.replace(/,/g, "");
+      if (value === "") {
+        setPrice(null);
+      } else if (/^\d{1,6}$/.test(value)) {
+        setPrice(Number(value));
+      }
+    };
+
+    const onMinusClick = () => {
+      if (price && price > 0) {
+        setPrice(Number(price) - 100);
+      }
+    };
+    const onPlusClick = () => {
+      setPrice(Number(price) + 100);
+    };
+    return (
+      <div className="flex items-center justify-start gap-2">
+        <div className="relative w-5 h-5 overflow-hidden">
+          <input
+            type="checkbox"
+            className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+          />
+        </div>
+        <div className="flex flex-col items-start justify-center gap-1">
+          <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
+            {name}
+          </div>
+        </div>
+        {/* counter */}
+        <div className="w-[124px] h-8 justify-start items-center flex">
+          <input
+            type="text"
+            placeholder="가격"
+            value={price === null ? "" : price.toLocaleString()}
+            onChange={onChangePrice}
+            className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
+          />
+          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
+            <Image
+              src="/icons/dropdown_up.svg"
+              width={12}
+              height={12}
+              alt=""
+              onClick={onPlusClick}
+            />
+            <Image
+              src="/icons/dropdown_down.svg"
+              width={12}
+              height={12}
+              alt=""
+              onClick={onMinusClick}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
-    <div className="flex flex-col  w-full px-20 py-7 gap-5">
+    <div className="flex flex-col  w-full px-20 py-7 gap-5 overflow-y-auto">
       <div className="flex flex-col w-full gap-7">
         {/* title */}
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9 ">
@@ -55,135 +156,14 @@ export default function Page() {
                 추가로 제공할 옵션을 선택해주세요.
               </div>
             </div>
-            <div className="flex items-center justify-start gap-6">
-              <div className="flex items-center justify-start gap-2">
-                <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
-                </div>
-                <div className="flex flex-col items-start justify-center gap-1">
-                  <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
-                    곱배기
-                  </div>
-                </div>
-                {/* counter */}
-                <div className="w-[124px] h-8 justify-start items-center flex">
-                  <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
-                    <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
-                      가격
-                    </div>
-                  </div>
-                  <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
-                    <Image
-                      src="/icons/dropdown_up.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                    <Image
-                      src="/icons/dropdown_down.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-start gap-2">
-                <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
-                </div>
-                <div className="flex flex-col items-start justify-center gap-1">
-                  <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
-                    밥 추가
-                  </div>
-                </div>
-                {/* counter */}
-                <div className="w-[124px] h-8 justify-start items-center flex">
-                  <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
-                    <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
-                      가격
-                    </div>
-                  </div>
-                  <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
-                    <Image
-                      src="/icons/dropdown_up.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                    <Image
-                      src="/icons/dropdown_down.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-start gap-2">
-                <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
-                </div>
-                <div className="flex flex-col items-start justify-center gap-1">
-                  <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
-                    면 추가
-                  </div>
-                </div>
-                {/* counter */}
-                <div className="w-[124px] h-8 justify-start items-center flex">
-                  <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
-                    <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
-                      가격
-                    </div>
-                  </div>
-                  <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
-                    <Image
-                      src="/icons/dropdown_up.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                    <Image
-                      src="/icons/dropdown_down.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-start gap-2">
-                <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
-                </div>
-                <input
-                  type="text"
-                  className="w-28 text-xl font-medium border-b-2 border-b-gray4"
-                  placeholder="직접 입력"
-                />
-                {/* counter */}
-                <div className="w-[124px] h-8 justify-start items-center flex">
-                  <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
-                    <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
-                      가격
-                    </div>
-                  </div>
-                  <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
-                    <Image
-                      src="/icons/dropdown_up.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                    <Image
-                      src="/icons/dropdown_down.svg"
-                      width={12}
-                      height={12}
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="flex items-center justify-start gap-6 flex-wrap">
+              {/* 곱배기 */}
+              <MenuOption name="곱배기" />
+              <MenuOption name="밥 추가" />
+              <MenuOption name="면 추가" />
+
+              {/* 직접 입력 */}
+              <CustomOption />
             </div>
           </div>
           <div className=" flex-col justify-start items-start gap-4 flex">
