@@ -5,33 +5,80 @@ import React, { useState } from "react";
 
 export default function Page() {
   const CustomOption = () => {
+    const [price, setPrice] = useState<number | null>(null);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [name, setName] = useState<string>("");
+
+    const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const rawValue = e.target.value;
+      const value = rawValue.replace(/,/g, "");
+      if (value === "") {
+        setPrice(null);
+      } else if (/^\d{1,6}$/.test(value)) {
+        setPrice(Number(value));
+      }
+    };
+    const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setName(e.target.value);
+    };
+
+    const onMinusClick = () => {
+      if (price && price > 0) {
+        setPrice(Number(price) - 100);
+      }
+    };
+    const onPlusClick = () => {
+      setPrice(Number(price) + 100);
+    };
+
     return (
-      <div className="flex items-center justify-start gap-2">
+      <div className="flex items-center gap-2">
         <div className="relative w-5 h-5 overflow-hidden">
           <input
             type="checkbox"
             className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+            onChange={() => {
+              if (isChecked) {
+                setIsChecked(false);
+                setPrice(null);
+              } else {
+                setIsChecked(true);
+              }
+            }}
           />
         </div>
         <input
           type="text"
-          className="w-28 text-xl font-medium border-b-2 border-b-gray4"
+          className=" text-xl font-medium border-b-2 border-b-gray4"
           placeholder="직접 입력"
+          disabled={!isChecked ? true : false}
+          value={name}
+          onChange={onNameChange}
         />
         {/* counter */}
         <div className="w-[124px] h-8 justify-start items-center flex">
-          <div className="w-24 h-8 px-5 py-2 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 justify-center items-center gap-2 flex">
-            <div className="text-gray5 text-base font-normal font-['Inter'] leading-none">
-              가격
-            </div>
-          </div>
-          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col">
-            <Image src="/icons/dropdown_up.svg" width={12} height={12} alt="" />
+          <input
+            type="text"
+            placeholder="가격"
+            value={price === null ? "" : price.toLocaleString()}
+            onChange={onPriceChange}
+            className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
+            disabled={!isChecked ? true : false}
+          />
+          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
+            <Image
+              src="/icons/dropdown_up.svg"
+              width={12}
+              height={12}
+              alt=""
+              onClick={onPlusClick}
+            />
             <Image
               src="/icons/dropdown_down.svg"
               width={12}
               height={12}
               alt=""
+              onClick={onMinusClick}
             />
           </div>
         </div>
@@ -42,7 +89,7 @@ export default function Page() {
     const [price, setPrice] = useState<number | null>(null);
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
-    const onChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawValue = e.target.value;
       const value = rawValue.replace(/,/g, "");
       if (value === "") {
@@ -88,7 +135,7 @@ export default function Page() {
             type="text"
             placeholder="가격"
             value={price === null ? "" : price.toLocaleString()}
-            onChange={onChangePrice}
+            onChange={onPriceChange}
             className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
             disabled={!isChecked ? true : false}
           />
