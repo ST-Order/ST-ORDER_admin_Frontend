@@ -223,6 +223,7 @@ export default function Page() {
               <CustomOption />
             </div>
           </div>
+          {/* 메뉴 태그 */}
           <div className=" flex-col justify-start items-start gap-4 flex">
             <div className="flex items-center justify-start gap-3">
               <div className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
@@ -236,7 +237,10 @@ export default function Page() {
             <div className="flex items-center justify-start gap-6">
               <div className="flex items-center justify-start gap-2">
                 <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
+                  <input
+                    type="checkbox"
+                    className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+                  />
                 </div>
                 <div className="flex flex-col items-start justify-center gap-1">
                   <div className="text-black text-xl font-medium font-['Inter'] leading-tight">
@@ -246,7 +250,10 @@ export default function Page() {
               </div>
               <div className="flex items-center justify-start gap-2">
                 <div className="relative w-5 h-5 overflow-hidden">
-                  <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]" />
+                  <input
+                    type="checkbox"
+                    className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+                  />
                 </div>
                 <div className="flex flex-col items-start justify-center gap-1">
                   <div className="text-black text-xl font-medium font-['Inter'] leading-tight">
