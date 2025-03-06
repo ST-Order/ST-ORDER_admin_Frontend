@@ -4,161 +4,27 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Page() {
-  const CustomOption = () => {
-    const [price, setPrice] = useState<number | null>(null);
-    const [isChecked, setIsChecked] = useState<boolean>(false);
-    const [name, setName] = useState<string>("");
+  const [menuPrice, setMenuPrice] = useState<number | null>(null);
 
-    const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value;
-      const value = rawValue.replace(/,/g, "");
-      if (value === "") {
-        setPrice(null);
-      } else if (/^\d{1,6}$/.test(value)) {
-        setPrice(Number(value));
-      }
-    };
-    const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setName(e.target.value);
-    };
-
-    const onMinusClick = () => {
-      if (price && price > 0) {
-        setPrice(Number(price) - 100);
-      }
-    };
-    const onPlusClick = () => {
-      setPrice(Number(price) + 100);
-    };
-
-    return (
-      <div className="flex items-center gap-2">
-        <div className="relative w-5 h-5 overflow-hidden">
-          <input
-            type="checkbox"
-            className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
-            onChange={() => {
-              if (isChecked) {
-                setIsChecked(false);
-                setPrice(null);
-              } else {
-                setIsChecked(true);
-              }
-            }}
-          />
-        </div>
-        <input
-          type="text"
-          className=" text-xl font-medium border-b-2 border-b-gray4"
-          placeholder="직접 입력"
-          disabled={!isChecked ? true : false}
-          value={name}
-          onChange={onNameChange}
-        />
-        {/* counter */}
-        <div className="w-[124px] h-8 justify-start items-center flex">
-          <input
-            type="text"
-            placeholder="가격"
-            value={price === null ? "" : price.toLocaleString()}
-            onChange={onPriceChange}
-            className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
-            disabled={!isChecked ? true : false}
-          />
-          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
-            <Image
-              src="/icons/dropdown_up.svg"
-              width={12}
-              height={12}
-              alt=""
-              onClick={onPlusClick}
-            />
-            <Image
-              src="/icons/dropdown_down.svg"
-              width={12}
-              height={12}
-              alt=""
-              onClick={onMinusClick}
-            />
-          </div>
-        </div>
-      </div>
-    );
+  const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const value = rawValue.replace(/,/g, "");
+    if (value === "") {
+      setMenuPrice(null);
+    } else if (/^\d{1,6}$/.test(value)) {
+      setMenuPrice(Number(value));
+    }
   };
-  const MenuOption = ({ name }: { name: string }) => {
-    const [price, setPrice] = useState<number | null>(null);
-    const [isChecked, setIsChecked] = useState<boolean>(false);
 
-    const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value;
-      const value = rawValue.replace(/,/g, "");
-      if (value === "") {
-        setPrice(null);
-      } else if (/^\d{1,6}$/.test(value)) {
-        setPrice(Number(value));
-      }
-    };
-
-    const onMinusClick = () => {
-      if (price && price > 0) {
-        setPrice(Number(price) - 100);
-      }
-    };
-    const onPlusClick = () => {
-      setPrice(Number(price) + 100);
-    };
-
-    return (
-      <div className="flex items-center justify-start gap-2">
-        <div className="relative w-5 h-5 overflow-hidden">
-          <input
-            type="checkbox"
-            className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
-            onChange={() => {
-              if (isChecked) {
-                setIsChecked(false);
-                setPrice(null);
-              } else {
-                setIsChecked(true);
-              }
-            }}
-          />
-        </div>
-        <div className="flex flex-col items-start justify-center gap-1">
-          <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
-            {name}
-          </div>
-        </div>
-        {/* counter */}
-        <div className="w-[124px] h-8 justify-start items-center flex">
-          <input
-            type="text"
-            placeholder="가격"
-            value={price === null ? "" : price.toLocaleString()}
-            onChange={onPriceChange}
-            className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
-            disabled={!isChecked ? true : false}
-          />
-          <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
-            <Image
-              src="/icons/dropdown_up.svg"
-              width={12}
-              height={12}
-              alt=""
-              onClick={onPlusClick}
-            />
-            <Image
-              src="/icons/dropdown_down.svg"
-              width={12}
-              height={12}
-              alt=""
-              onClick={onMinusClick}
-            />
-          </div>
-        </div>
-      </div>
-    );
+  const onMinusClick = () => {
+    if (menuPrice && menuPrice > 0) {
+      setMenuPrice(Number(menuPrice) - 100);
+    }
   };
+  const onPlusClick = () => {
+    setMenuPrice(Number(menuPrice) + 100);
+  };
+
   return (
     <div className="flex flex-col  w-full px-20 py-7 gap-5 overflow-y-auto">
       <div className="flex flex-col w-full gap-7">
@@ -274,23 +140,26 @@ export default function Page() {
             </div>
             {/* counter */}
             <div className="w-[164px] h-11 justify-start items-center flex">
-              <div className="w-[126px] h-11 px-7 py-3 bg-[#ecedf0] rounded-tl-xl rounded-bl-xl border border-gray3 justify-center items-center gap-3 flex">
-                <div className="text-gray5 text-xl font-normal font-['Inter'] leading-none">
-                  가격
-                </div>
-              </div>
+              <input
+                placeholder="가격"
+                className="w-[126px] h-11 px-5 py-3 bg-[#ecedf0] rounded-tl-xl rounded-bl-xl border border-gray3 text-center text-xl font-normal font-['Inter'] leading-none"
+                value={menuPrice === null ? "" : menuPrice.toLocaleString()}
+                onChange={onPriceChange}
+              />
               <div className="h-full px-3 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center items-center">
                 <Image
                   src="/icons/dropdown_up.svg"
                   width={15}
                   height={15}
                   alt=""
+                  onClick={onPlusClick}
                 />
                 <Image
                   src="/icons/dropdown_down.svg"
                   width={15}
                   height={15}
                   alt=""
+                  onClick={onMinusClick}
                 />
               </div>
             </div>
@@ -308,3 +177,159 @@ export default function Page() {
     </div>
   );
 }
+
+const CustomOption = () => {
+  const [price, setPrice] = useState<number | null>(null);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+
+  const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const value = rawValue.replace(/,/g, "");
+    if (value === "") {
+      setPrice(null);
+    } else if (/^\d{1,6}$/.test(value)) {
+      setPrice(Number(value));
+    }
+  };
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const onMinusClick = () => {
+    if (price && price > 0) {
+      setPrice(Number(price) - 100);
+    }
+  };
+  const onPlusClick = () => {
+    setPrice(Number(price) + 100);
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <div className="relative w-5 h-5 overflow-hidden">
+        <input
+          type="checkbox"
+          className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+          onChange={() => {
+            if (isChecked) {
+              setIsChecked(false);
+              setPrice(null);
+            } else {
+              setIsChecked(true);
+            }
+          }}
+        />
+      </div>
+      <input
+        type="text"
+        className=" text-xl font-medium border-b-2 border-b-gray4"
+        placeholder="직접 입력"
+        disabled={!isChecked ? true : false}
+        value={name}
+        onChange={onNameChange}
+      />
+      {/* counter */}
+      <div className="w-[124px] h-8 justify-start items-center flex">
+        <input
+          type="text"
+          placeholder="가격"
+          value={price === null ? "" : price.toLocaleString()}
+          onChange={onPriceChange}
+          className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
+          disabled={!isChecked ? true : false}
+        />
+        <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
+          <Image
+            src="/icons/dropdown_up.svg"
+            width={12}
+            height={12}
+            alt=""
+            onClick={onPlusClick}
+          />
+          <Image
+            src="/icons/dropdown_down.svg"
+            width={12}
+            height={12}
+            alt=""
+            onClick={onMinusClick}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+const MenuOption = ({ name }: { name: string }) => {
+  const [price, setPrice] = useState<number | null>(null);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const value = rawValue.replace(/,/g, "");
+    if (value === "") {
+      setPrice(null);
+    } else if (/^\d{1,6}$/.test(value)) {
+      setPrice(Number(value));
+    }
+  };
+
+  const onMinusClick = () => {
+    if (price && price > 0) {
+      setPrice(Number(price) - 100);
+    }
+  };
+  const onPlusClick = () => {
+    setPrice(Number(price) + 100);
+  };
+
+  return (
+    <div className="flex items-center justify-start gap-2">
+      <div className="relative w-5 h-5 overflow-hidden">
+        <input
+          type="checkbox"
+          className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-sm border border-[#adb3c0]"
+          onChange={() => {
+            if (isChecked) {
+              setIsChecked(false);
+              setPrice(null);
+            } else {
+              setIsChecked(true);
+            }
+          }}
+        />
+      </div>
+      <div className="flex flex-col items-start justify-center gap-1">
+        <div className="text-black text-xl font-medium font-['Inter'] leading-tight border-b-2 border-b-gray4">
+          {name}
+        </div>
+      </div>
+      {/* counter */}
+      <div className="w-[124px] h-8 justify-start items-center flex">
+        <input
+          type="text"
+          placeholder="가격"
+          value={price === null ? "" : price.toLocaleString()}
+          onChange={onPriceChange}
+          className="w-24 h-8 px-5 py-1 bg-[#ecedf0] rounded-tl-lg rounded-bl-lg border border-gray3 text-center text-base font-normal font-['Inter'] leading-none"
+          disabled={!isChecked ? true : false}
+        />
+        <div className="h-full px-2 py-1 bg-gray3 rounded-tr-lg rounded-br-lg border border-gray3 flex flex-col justify-center">
+          <Image
+            src="/icons/dropdown_up.svg"
+            width={12}
+            height={12}
+            alt=""
+            onClick={onPlusClick}
+          />
+          <Image
+            src="/icons/dropdown_down.svg"
+            width={12}
+            height={12}
+            alt=""
+            onClick={onMinusClick}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
