@@ -3,23 +3,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
+interface LogInRequest {
+  email: string;
+  password: string;
+}
 export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   return <>{!isLoggedIn ? <LogIn /> : <Home />}</>;
 }
 const LogIn = () => {
   const [visible, setVisible] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LogInRequest>();
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<LogInRequest> = (data) => {
     console.log(data);
   };
 
   return (
     <div className="flex items-center justify-center w-full pb-80">
-      <div className="flex flex-col justify-center gap-7">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-center gap-7"
+      >
         <div className="text-4xl font-bold leading-9">로그인</div>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
@@ -34,9 +45,21 @@ const LogIn = () => {
               <div className="text-xl font-normal leading-tight">이메일</div>
             </div>
             <input
+              {...register("email", {
+                required: "이메일은 필수입니다.",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "유효한 이메일 주소를 입력하세요",
+                },
+              })}
               placeholder="이메일을 입력해주세요."
               className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] text-xl font-normal leading-tight "
             />
+            {errors.email?.message && (
+              <div className="text-base font-normal leading-none text-red2">
+                {errors.email?.message}
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
@@ -51,10 +74,14 @@ const LogIn = () => {
             </div>
             <div className="relative">
               <input
+                {...register("password", {
+                  required: "비밀번호는 필수입니다.",
+                })}
                 type={`${visible ? "text" : "password"}`}
                 placeholder="비밀번호를 입력해주세요."
-                className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] justify-between items-center inline-flex overflow-hidden text-xl font-normal leading-tight text-gray5"
+                className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] justify-between items-center inline-flex overflow-hidden text-xl font-normal leading-tight"
               />
+
               <div className="absolute inset-y-0 right-5 flex items-center">
                 <Image
                   aria-hidden
@@ -72,14 +99,24 @@ const LogIn = () => {
                 />
               </div>
             </div>
+            {errors.password?.message && (
+              <div className="text-base font-normal leading-none text-red2">
+                {errors.password?.message}
+              </div>
+            )}
           </div>
         </div>
         {/* warning */}
-        <div className="text-base font-normal leading-none text-red2">
-          가입하지 않은 이메일이거나 잘못된 비밀번호입니다.
-        </div>
+        {errors.root && (
+          <div className="text-base font-normal leading-none text-red2">
+            가입하지 않은 이메일이거나 잘못된 비밀번호입니다.
+          </div>
+        )}
         <div className="flex flex-col items-center w-full gap-5">
-          <button className="w-full px-32 py-5 flex bg-blue2 rounded-[20px] justify-center items-center text-white text-[22px] font-medium leading-snug">
+          <button
+            type="submit"
+            className="w-full px-32 py-5 flex bg-blue2 rounded-[20px] justify-center items-center text-white text-[22px] font-medium leading-snug"
+          >
             로그인
           </button>
           <div
@@ -89,7 +126,7 @@ const LogIn = () => {
             아이디/비밀번호 찾기
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
