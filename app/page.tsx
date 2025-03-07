@@ -3,12 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Page() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   return <>{!isLoggedIn ? <LogIn /> : <Home />}</>;
 }
 const LogIn = () => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="flex items-center justify-center w-full pb-80">
       <div className="flex flex-col justify-center gap-7">
@@ -25,11 +33,10 @@ const LogIn = () => {
               />
               <div className="text-xl font-normal leading-tight">이메일</div>
             </div>
-            <div className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] items-center gap-3 inline-flex">
-              <div className="text-xl font-normal leading-tight text-gray5">
-                이메일을 입력해주세요.
-              </div>
-            </div>
+            <input
+              placeholder="이메일을 입력해주세요."
+              className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] text-xl font-normal leading-tight "
+            />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
@@ -42,17 +49,28 @@ const LogIn = () => {
               />
               <div className="text-xl font-normal leading-tight">비밀번호</div>
             </div>
-            <div className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] justify-between items-center inline-flex">
-              <div className="text-xl font-normal leading-tight text-gray5">
-                비밀번호를 입력해주세요.
-              </div>
-              <Image
-                aria-hidden
-                src="/icons/eyes-closed.svg"
-                alt="eyes_closed icon"
-                width={20}
-                height={20}
+            <div className="relative">
+              <input
+                type={`${visible ? "text" : "password"}`}
+                placeholder="비밀번호를 입력해주세요."
+                className="w-[480px] h-[72px] px-5 py-3 bg-white rounded-xl border border-[#adb3c0] justify-between items-center inline-flex overflow-hidden text-xl font-normal leading-tight text-gray5"
               />
+              <div className="absolute inset-y-0 right-5 flex items-center">
+                <Image
+                  aria-hidden
+                  src={`${
+                    visible ? `/icons/eyes-open.svg` : `/icons/eyes-closed.svg`
+                  }`}
+                  alt="eyes_closed icon"
+                  width={20}
+                  height={20}
+                  className="z-20 cursor-pointer"
+                  onClick={() => {
+                    setVisible(!visible);
+                    console.log(visible);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +102,7 @@ const Home = () => {
   const menuTextStyle = "text-center text-black text-[28px] font-normal";
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-screen py-8 overflow-y-auto">
+    <div className="flex flex-col items-center justify-start w-full py-8 overflow-y-auto">
       <div className="flex flex-col items-center justify-center gap-16 pb-32">
         {/* greeting */}
         <div className="flex flex-col items-center gap-4 ">
