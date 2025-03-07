@@ -121,7 +121,9 @@ const LogIn = () => {
           </button>
           <div
             className="text-base font-normal cursor-pointer text-gray5"
-            onClick={() => alert("아이디/비밀번호 찾기")}
+            onClick={() =>
+              alert("관리자 측으로 연락해주세요\nContact: 010-1234-5678")
+            }
           >
             아이디/비밀번호 찾기
           </div>
