@@ -1,5 +1,7 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,16 +16,37 @@ export default function Page() {
   return <>{!isLoggedIn ? <LogIn /> : <Home />}</>;
 }
 const LogIn = () => {
+  const baseUrl = "";
   const [visible, setVisible] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LogInRequest>();
 
   const onSubmit: SubmitHandler<LogInRequest> = (data) => {
     console.log(data);
+    mutate(data);
   };
+
+  const signIn = async (data: LogInRequest) => {
+    const response = await axios.post(baseUrl, data);
+  };
+
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationFn: (data: LogInRequest) => signIn(data),
+    onSuccess: () => {
+      alert("로그인 되었습니다.");
+    },
+    onError: (error) => {
+      alert("로그인에 실패하였습니다." + error.message);
+      setError("root", {
+        type: "server",
+        message: error.message,
+      });
+    },
+  });
 
   return (
     <div className="flex items-center justify-center w-full pb-80">
@@ -117,7 +140,7 @@ const LogIn = () => {
             type="submit"
             className="w-full px-32 py-5 flex bg-blue2 rounded-[20px] justify-center items-center text-white text-[22px] font-medium leading-snug"
           >
-            로그인
+            {isPending ? "로그인 중..." : "로그인"}
           </button>
           <div
             className="text-base font-normal cursor-pointer text-gray5"
