@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export default function Page() {
   const [category, setCategory] = useState<boolean>(false);
   const [selectedCat, setSelectedCat] = useState<string>();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const OptionItem = ({
     name,
     index,
@@ -15,9 +17,7 @@ export default function Page() {
     index: number;
     length: number;
   }) => {
-    // 테두리 클래스 로직
     let borderClass = "";
-
     if (index === length - 1) {
       // 마지막 항목: hover 시에만 위쪽 테두리
       borderClass = "hover:border-t";
@@ -57,8 +57,19 @@ export default function Page() {
     );
   };
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full gap-5 px-10 lg:px-20 py-7">
+    <div className="flex flex-col w-full gap-5 px-10 overflow-y-scroll lg:px-20 py-7">
       <div className="flex flex-col w-full gap-7">
         {/* title */}
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9 ">
@@ -153,7 +164,7 @@ export default function Page() {
               )}
             </div>
           </div>
-          {/* 3rd row */}
+          {/* 사진 */}
           <div className="flex flex-col items-start justify-center h-40 gap-4">
             <div className="flex items-center justify-start gap-3">
               <div className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
@@ -163,14 +174,35 @@ export default function Page() {
                 이해를 도울 사진이 있다면 등록해주세요.
               </div>
             </div>
-            <div className="border-gray3 bg-gray2 w-[155px] h-[120px] border flex justify-center items-center rounded-xl">
-              <Image
-                src="/icons/plus_black.svg"
-                width={20}
-                height={20}
-                alt=""
+            <label
+              htmlFor="image"
+              className="border-gray3 bg-gray2 w-[155px] h-[120px] border flex justify-center items-center rounded-xl cursor-pointer overflow-hidden"
+            >
+              {!imagePreview ? (
+                <Image
+                  src="/icons/plus_black.svg"
+                  width={20}
+                  height={20}
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src={imagePreview}
+                  alt="미리보기"
+                  className="object-cover w-full h-full"
+                  width={155}
+                  height={120}
+                  layout="responsive"
+                />
+              )}
+              <input
+                type="file"
+                className="hidden"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
               />
-            </div>
+            </label>
           </div>
           {/* 4th row */}
           <div className="flex flex-col items-start justify-center w-2/3 gap-4">
