@@ -25,3 +25,16 @@ export interface SoldoutMenu {
   price: number; // Integer를 number로 변환
   isSoldOut: boolean;
 }
+
+export interface RegisterMenu {
+  menuName: string;
+  menuImage: string;
+  description: string;
+  price: string;
+  options: RegisterOption[];
+}
+interface RegisterOption {
+  optionName: string;
+  optionPrice: number;
+  optionAvailable: boolean;
+}
