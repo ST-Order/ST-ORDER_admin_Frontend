@@ -1,8 +1,64 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Page() {
+  const [category, setCategory] = useState<boolean>(false);
+  const [selectedCat, setSelectedCat] = useState<string>();
+  const OptionItem = ({
+    name,
+    index,
+    length,
+  }: {
+    name: string;
+    index: number;
+    length: number;
+  }) => {
+    // 테두리 클래스 로직
+    let borderClass = "";
+
+    if (index === length - 1) {
+      // 마지막 항목: hover 시에만 위쪽 테두리
+      borderClass = "hover:border-t";
+    } else if (index === 0) {
+      // 첫 번째 항목: 항상 아래쪽 테두리
+      borderClass = "border-b";
+    } else {
+      // 중간 항목: 항상 아래쪽 테두리, hover 시 위쪽 테두리 추가
+      borderClass = "border-b hover:border-t";
+    }
+
+    return (
+      <div
+        onClick={() => {
+          setSelectedCat(name);
+          setCategory(false);
+        }}
+        className={`cursor-pointer w-full py-3 px-6 ${borderClass} hover:border-[#adb3c0] border-[#dee1e6] bg-[#f9f9fa] hover:bg-[#dee1e6] text-xl font-normal font-['Inter'] leading-tight`}
+      >
+        {name}
+      </div>
+    );
+  };
+
+  const OptionList = ({ categories }: { categories: string[] }) => {
+    return (
+      <div className="w-full rounded-xl border border-[#adb3c0] flex-col bg-white overflow-hidden">
+        {categories.map((category, index) => (
+          <OptionItem
+            key={index}
+            name={category}
+            index={index}
+            length={categories.length}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className="flex flex-col  w-full px-20 py-7 gap-5">
+    <div className="flex flex-col w-full gap-5 px-10 lg:px-20 py-7">
       <div className="flex flex-col w-full gap-7">
         {/* title */}
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9 ">
@@ -11,8 +67,8 @@ export default function Page() {
         {/* form */}
         <form className="flex flex-col items-start justify-start gap-7">
           {/* 1st row */}
-          <div className="flex items-start gap-40 w-2/3">
-            <div className="flex flex-col items-start justify-start gap-4 flex-1">
+          <div className="flex items-start w-full gap-10 lg:gap-40 lg:w-2/3">
+            <div className="flex flex-col items-start justify-start flex-1 gap-4">
               <label className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
                 제목
               </label>
@@ -25,28 +81,36 @@ export default function Page() {
               <label className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
                 노출 기간
               </label>
-              <div className="h-5 justify-start items-center gap-6 inline-flex">
-                <div className="justify-start items-center gap-2 flex">
-                  <div className="w-5 h-5 relative  overflow-hidden">
-                    <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute rounded-full border border-[#1756ea]" />
-                    <div className="w-2.5 h-2.5 left-[5px] top-[5px] absolute bg-[#1756ea] rounded-full" />
-                  </div>
+              <div className="flex items-center gap-6 wrap max-w-96">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    className="w-5 h-5"
+                    value={1}
+                    name="duration"
+                  />
                   <div className="text-black text-xl font-normal font-['Inter'] leading-tight">
                     하루(24시간)
                   </div>
                 </div>
-                <div className="justify-start items-center gap-2 flex">
-                  <div className="w-5 h-5 relative  overflow-hidden">
-                    <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-full border border-[#adb3c0]" />
-                  </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    className="w-5 h-5"
+                    value={2}
+                    name="duration"
+                  />
                   <div className="text-black text-xl font-normal font-['Inter'] leading-tight">
                     일주일(7일)
                   </div>
                 </div>
-                <div className="justify-start items-center gap-2 flex">
-                  <div className="w-5 h-5 relative  overflow-hidden">
-                    <div className="w-[18px] h-[18px] left-[1px] top-[1px] absolute bg-white rounded-full border border-[#adb3c0]" />
-                  </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    className="w-5 h-5"
+                    value={3}
+                    name="duration"
+                  />
                   <div className="text-black text-xl font-normal font-['Inter'] leading-tight">
                     한 달(30일)
                   </div>
@@ -54,15 +118,26 @@ export default function Page() {
               </div>
             </div>
           </div>
-          {/* 2nd row */}
+          {/* 카테고리 */}
           <div className="flex flex-col items-start justify-start gap-4">
             <div className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
               카테고리
             </div>
-            <div className="flex gap-4 justify-center items-center">
-              <div className="w-96 justify-between items-center px-4 py-3 bg-gray1 rounded-xl border border-gray4 flex ">
-                <div className="text-gray5 text-xl font-normal font-['Inter'] leading-tight">
-                  공지사항의 유형을 선택해주세요.
+            <div className="relative w-96">
+              <div
+                onClick={() => {
+                  setCategory(!category);
+                }}
+                className="flex items-center justify-between w-full px-4 py-3 border cursor-pointer bg-gray1 rounded-xl border-gray4"
+              >
+                <div
+                  className={`${
+                    !selectedCat ? "text-gray5" : "text-black"
+                  }  text-xl font-normal font-['Inter'] leading-tight`}
+                >
+                  {!selectedCat
+                    ? "공지사항의 유형을 선택해주세요."
+                    : selectedCat}
                 </div>
                 <Image
                   src="/icons/dropdown_down.svg"
@@ -71,6 +146,11 @@ export default function Page() {
                   alt=""
                 />
               </div>
+              {category && (
+                <div className="absolute left-0 z-10 w-full mt-1 top-full">
+                  <OptionList categories={["신메뉴 출시", "품절 안내"]} />
+                </div>
+              )}
             </div>
           </div>
           {/* 3rd row */}
@@ -110,7 +190,7 @@ export default function Page() {
           </div>
         </form>
       </div>
-      <div className="justify-center items-center gap-4 flex">
+      <div className="flex items-center justify-center gap-4">
         <button className="w-[268px] py-4 bg-red1 rounded-2xl text-[22px] font-medium leading-snug text-white text-center">
           취소
         </button>
