@@ -300,7 +300,7 @@ const OrderCard = ({
               접수하기
             </button>
           ) : status === "preparing" ? (
-            <button className="px-10 py-3 bg-red1 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
+            <button className="px-10 py-3 bg-blue2 rounded-xl text-white text-[22px] font-medium font-['Inter'] leading-snug ">
               조리 완료
             </button>
           ) : (
