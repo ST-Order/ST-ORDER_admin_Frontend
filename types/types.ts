@@ -38,3 +38,11 @@ interface RegisterOption {
   optionPrice: number;
   optionAvailable: boolean;
 }
+
+export interface RegisterNotice {
+  title: string;
+  category: string;
+  imageURL?: string;
+  content: string;
+  visibilityPeriod: "days" | "week" | "month";
+}
