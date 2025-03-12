@@ -13,15 +13,15 @@ export default function Page() {
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9">
           메뉴 관리
         </div>
-        <button className="px-6 py-3 bg-[#0e34c9] rounded-xl justify-center items-center gap-3 flex">
+        <Link
+          href={"/menus/register"}
+          className="px-6 py-3 bg-[#0e34c9] rounded-xl justify-center items-center gap-3 flex"
+        >
           <Image src="/icons/plus.svg" alt="plus" width={20} height={20} />
-          <Link
-            href={"/menus/register"}
-            className="text-white text-[22px] font-medium font-['Inter'] leading-snug"
-          >
+          <div className="text-white text-[22px] font-medium font-['Inter'] leading-snug">
             메뉴 등록
-          </Link>
-        </button>
+          </div>
+        </Link>
       </div>
       {/* rows section */}
       <div className="flex flex-col flex-1 w-full gap-4 pt-4 pb-24 overflow-y-auto">
