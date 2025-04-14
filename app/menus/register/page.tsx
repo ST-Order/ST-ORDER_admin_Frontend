@@ -1,9 +1,24 @@
 "use client";
 
+import { RegisterMenu } from "@/types/types";
 import Image from "next/image";
 import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function Page() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterMenu>();
+
+  const onSubmit: SubmitHandler<RegisterMenu> = (data) => {
+    // handle form submission
+    console.log(data);
+    // call your server to register the menu
+    // ...
+  };
+
   const [menuPrice, setMenuPrice] = useState<number | null>(null);
 
   const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,19 +41,23 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col  w-full px-20 py-7 gap-5 overflow-y-auto">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col  w-full px-20 py-7 gap-5 overflow-y-auto"
+    >
       <div className="flex flex-col w-full gap-7">
         {/* title */}
         <div className="text-black text-4xl font-bold font-['Inter'] leading-9 ">
           메뉴 등록
         </div>
         {/* form */}
-        <form className="flex flex-col items-start justify-start gap-7">
+        <div className="flex flex-col items-start justify-start gap-7">
           <div className="flex flex-col items-start justify-start w-2/3 gap-4">
             <label className="text-black text-2xl font-semibold font-['Inter'] leading-normal">
               메뉴 이름
             </label>
             <input
+              {...register("menuName", { required: true })}
               placeholder="메뉴 이름을 입력해주세요."
               className="px-4 py-3 bg-[#ecedf0] rounded-xl border border-gray3  text-xl font-normal font-['Inter'] leading-tight w-full"
             ></input>
@@ -66,6 +85,7 @@ export default function Page() {
               메뉴 설명
             </label>
             <input
+              {...register("description", { required: true })}
               placeholder="메뉴 설명을 입력해주세요."
               className="px-4 py-3 bg-[#ecedf0] rounded-xl border border-gray3  text-xl font-normal font-['Inter'] leading-tight w-full"
             />
@@ -141,6 +161,7 @@ export default function Page() {
             {/* counter */}
             <div className="w-[164px] h-11 justify-start items-center flex">
               <input
+                {...register("price", { required: true })}
                 placeholder="가격"
                 className="w-[126px] h-11 px-5 py-3 bg-[#ecedf0] rounded-tl-xl rounded-bl-xl border border-gray3 text-center text-xl font-normal font-['Inter'] leading-none"
                 value={menuPrice === null ? "" : menuPrice.toLocaleString()}
@@ -164,17 +185,20 @@ export default function Page() {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div className="justify-center items-center gap-4 flex">
         <button className="w-[268px] py-4 bg-red1 rounded-2xl text-[22px] font-medium leading-snug text-white text-center">
           취소
         </button>
-        <button className="w-[268px] py-4 bg-blue2 rounded-2xl text-[22px] font-medium leading-snug text-white text-center">
+        <button
+          type="submit"
+          className="w-[268px] py-4 bg-blue2 rounded-2xl text-[22px] font-medium leading-snug text-white text-center"
+        >
           등록완료
         </button>
       </div>
-    </div>
+    </form>
   );
 }
 
